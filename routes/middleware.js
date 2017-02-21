@@ -1,4 +1,8 @@
-module.exports = app => {
+const apiRoutes = require('express').Router();
+const jwt       = require('jsonwebtoken');
+
+const config    = require('../config');
+
 apiRoutes.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -7,7 +11,7 @@ apiRoutes.use(function(req, res, next) {
   if (token) {
 
     // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+    jwt.verify(token, config.secret, function(err, decoded) {      
       if (err) {
         return res.json({ success: false, message: 'Failed to authenticate token.' });    
       } else {
@@ -28,4 +32,5 @@ apiRoutes.use(function(req, res, next) {
     
   }
 });
-};
+
+module.exports = apiRoutes;

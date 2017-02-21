@@ -2,7 +2,7 @@ module.exports = app => {
 	app.get('/setup', function(req, res) {
 		// create a sample user
 		var nick = new User({ 
-			username: 'Nick Cerminara', 
+			username: 'admin', 
 			password: 'password',
 			admin: true 
 		});
